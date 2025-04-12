@@ -66,5 +66,6 @@ func (repo *Storage) Create(ctx context.Context, res modelCategory.CreateCategor
 			return execErr
 		}
 	}
+
 	return nil
 }
