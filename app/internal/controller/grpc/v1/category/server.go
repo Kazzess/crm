@@ -2,6 +2,8 @@ package category
 
 import (
 	"context"
+
+	gRPCCategoryService "github.com/Kazzess/contracts/gen/go/category_service/v1"
 )
 
 type policy interface {

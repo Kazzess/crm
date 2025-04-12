@@ -2,20 +2,21 @@ package category
 
 import (
 	"context"
-	"errors"
-	"time"
+
+	"github.com/Kazzess/libraries/errors"
+	"github.com/Kazzess/libraries/logging"
 
 	modelCategory "crm/app/internal/domain/category/model"
 )
 
 func (p *Policy) CreateCategory(ctx context.Context, name string) error {
-	// TODO add base policy: UUID generator, clock generator.
-	time := time.Now()
+	logging.L(ctx).Debug("CreateCategory policy")
+
 	request := modelCategory.ConstructorCreateCategoryInput(
 		name,
 		false,
-		time,
-		time,
+		p.Now(),
+		p.Now(),
 	)
 
 	err := p.service.CreateCategory(ctx, request)

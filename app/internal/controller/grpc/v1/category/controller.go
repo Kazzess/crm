@@ -3,9 +3,10 @@ package category
 import (
 	"context"
 
-	"github.com/pkg/errors"
+	"github.com/Kazzess/libraries/errors"
+	"github.com/Kazzess/libraries/logging"
 
-	"github.com/Kazzess/Contracts/gen/go/category_service/v1;pb_category_service_v1"
+	gRPCCategoryService "github.com/Kazzess/contracts/gen/go/category_service/v1"
 )
 
 //  ------------------------------------------------ Action with Category -----------------------------------------
@@ -15,13 +16,14 @@ func (c *Controller) CreateCategory(
 	ctx context.Context,
 	req *gRPCCategoryService.CreateCategoryRequest,
 ) (*gRPCCategoryService.CreateCategoryResponse, error) {
-	err := c.policy.CreateCategory(ctx, req.GetName())
+	logging.L(ctx).Debug("CreateCategory")
 
+	err := c.policy.CreateCategory(ctx, req.GetName())
 	if err != nil {
 		return nil, errors.Wrap(err, "policyCreateCategory")
 	}
 
-	response := gRPCCategoryService.CreateCategoryResponse
+	response := gRPCCategoryService.CreateCategoryResponse{}
 
 	return &response, nil
 }

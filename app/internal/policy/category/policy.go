@@ -4,6 +4,8 @@ import (
 	"context"
 
 	modelCategory "crm/app/internal/domain/category/model"
+
+	"crm/app/internal/policy"
 )
 
 type Service interface {
@@ -13,6 +15,7 @@ type Service interface {
 }
 
 type Policy struct {
+	policy.BasePolicy
 	service Service
 }
 
@@ -20,6 +23,7 @@ func NewPolicy(
 	service Service,
 ) Policy {
 	return Policy{
-		service: service,
+		BasePolicy: policy.BasePolicy{},
+		service:    service,
 	}
 }
