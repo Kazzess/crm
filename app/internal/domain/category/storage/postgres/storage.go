@@ -53,19 +53,18 @@ func (repo *Storage) Create(ctx context.Context, res modelCategory.CreateCategor
 		tracing.TraceValue(ctx, strconv.Itoa(i), arg)
 	}
 
-	var id uint64
-	if err = repo.client.QueryRow(ctx, query, args...).Scan(&id); err != nil {
-		if pgErr, ok := psql.IsErrUniqueViolation(err); ok {
+	_, execErr := repo.client.Exec(ctx, query, args...)
+	if execErr != nil {
+		if pgErr, ok := psql.IsErrUniqueViolation(execErr); ok {
 			switch pgErr.ConstraintName {
 			case domainCategory.CategoryIDPkConstraint:
 				return domainCategory.ErrViolatesConstraintCategoryIDPk
 			}
+
+			execErr = psql.ErrDoQuery(psql.ParsePgError(execErr))
+
+			return execErr
 		}
-
-		err = psql.ErrDoQuery(psql.ParsePgError(err))
-
-		return err
 	}
-
 	return nil
 }

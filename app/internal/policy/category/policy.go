@@ -10,20 +10,19 @@ import (
 
 type Service interface {
 	CreateCategory(ctx context.Context, req modelCategory.CreateCategoryInput) error
-	UpdateCategory()
-	SearchCategory()
 }
 
 type Policy struct {
-	policy.BasePolicy
+	*policy.BasePolicy
 	service Service
 }
 
 func NewPolicy(
+	basePolicy *policy.BasePolicy,
 	service Service,
-) Policy {
-	return Policy{
-		BasePolicy: policy.BasePolicy{},
+) *Policy {
+	return &Policy{
+		BasePolicy: basePolicy,
 		service:    service,
 	}
 }

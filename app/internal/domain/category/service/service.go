@@ -10,15 +10,15 @@ import (
 )
 
 type storage interface {
-	CreateCategory(ctx context.Context, req modelCategory.CreateCategoryInput) error
+	Create(ctx context.Context, req modelCategory.CreateCategoryInput) error
 }
 
 type Service struct {
 	storage storage
 }
 
-func NewStorage(storage storage) Service {
-	return Service{
+func NewService(storage storage) *Service {
+	return &Service{
 		storage: storage,
 	}
 }
@@ -26,7 +26,7 @@ func NewStorage(storage storage) Service {
 func (s *Service) CreateCategory(ctx context.Context, req modelCategory.CreateCategoryInput) error {
 	logging.L(ctx).Debug("CreateCategory called service")
 
-	err := s.storage.CreateCategory(ctx, req)
+	err := s.storage.Create(ctx, req)
 	if err != nil {
 		return errors.New("service.CreateCategory")
 	}

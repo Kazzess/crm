@@ -1,0 +1,6 @@
+### Category - CreateCategory
+GRPC localhost:9994/category_service/v1/CategoryService/CreateCategory
+
+{
+  "name": "Бумажные изделия"
+}

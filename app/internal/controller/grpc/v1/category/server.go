@@ -15,8 +15,8 @@ type Controller struct {
 	policy policy
 }
 
-func NewController(policy policy) Controller {
-	return Controller{
+func NewController(policy policy) *Controller {
+	return &Controller{
 		policy: policy,
 	}
 }

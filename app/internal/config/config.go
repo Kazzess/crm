@@ -66,7 +66,7 @@ func GetConfig() *Config {
 		flag.StringVar(
 			&configPath,
 			FlagConfigPathName,
-			"config.local.yaml",
+			"/home/kazess/workspace/crm/configs/config.local.yaml",
 			"this is application configuration file",
 		)
 		flag.Parse()

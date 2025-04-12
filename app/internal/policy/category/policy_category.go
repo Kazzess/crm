@@ -15,8 +15,8 @@ func (p *Policy) CreateCategory(ctx context.Context, name string) error {
 	request := modelCategory.ConstructorCreateCategoryInput(
 		name,
 		false,
-		p.Now(),
-		p.Now(),
+		p.BasePolicy.Now(),
+		p.BasePolicy.Now(),
 	)
 
 	err := p.service.CreateCategory(ctx, request)

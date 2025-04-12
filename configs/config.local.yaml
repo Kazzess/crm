@@ -60,7 +60,7 @@ postgres:
   user: postgres
   password: testtest
   port: 5432
-  database: game
+  database: srm
   max_attempt: 3
   max_delay: 3s
   binary: false
