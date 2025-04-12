@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  postgresql:
+    image: postgres:16.2-alpine
+    container_name: srm
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: testtest
+      POSTGRES_DB: srm
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    networks:
+      - crm-net
+
+volumes:
+  pg-data:
+    name: crm-pg-data
+
+networks:
+  crm-net:
+    driver: bridge

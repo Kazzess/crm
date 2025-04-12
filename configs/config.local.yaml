@@ -1,0 +1,205 @@
+app:
+  id: 1
+  name: game-service
+  version: 1.0
+  is_dev: true
+  log_level: debug
+  is_log_json: true
+  new_providers_check_interval: 1h
+  update_popular_games_interval: 10s
+  update_count_bet_interval: 12h
+
+cache_ttl:
+  collection_cache_ttl: 12h
+  game_cache_ttl: 12h
+  popular_game_ttl: 12h
+  popular_searchers_game_ttl: 12h
+
+winwin:
+  token: dkVZphQWii4vhiFtNqBRGfchgqNhK
+
+softswiss:
+  url: https://casino.int.a8r.games
+  token:
+  max_idle_conns: 100
+  max_conns_per_host: 100
+  max_idle_conns_per_host: 100
+  client_timeout: 10s
+  casino_id: 1
+
+imperium:
+  url: http://tbs2api.aslot.net/API/
+  halls_config: imperium_halls.yml
+  max_idle_conns: 100
+  max_conns_per_host: 100
+  max_idle_conns_per_host: 100
+  client_timeout: 10s
+  default_house_edge: 10.5
+
+redis:
+  address: localhost:6379
+  password: ""
+  db: 0
+  tls: false
+  max_attempts: 3
+  max_delay: 3s
+
+grpc:
+  host: 0.0.0.0
+  port: 9994
+  health_check_interval: 10s
+
+grpc_clients:
+  currency_service:
+    host: 10.8.0.1
+    port: 9300
+  balance_service:
+    host: 10.8.0.1
+    port: 9302
+  user_service:
+    host: 10.8.0.1
+    port: 9303
+  bonus_service:
+    host: 10.8.0.1
+    port: 9304
+
+http:
+  host: 0.0.0.0
+  port: 8082
+  read_header_timeout: 3s
+
+nats:
+  enable: true
+  debug: true
+  tracing: true
+  auth:
+    is_enabled: true
+    username: ruser
+    password: T0pS3cr3t
+  urls:
+    - nats://localhost:30026
+    - nats://localhost:4222
+  timeout: 2s
+  max_ack_pending: 2s
+  consumer_id: game-service
+  notifications:
+    subject: notifications
+    bonus_service:
+      enabled: true
+  streams:
+    bet_events:
+      enabled: true
+      name: BETS
+      subjects:
+        bet: aggregate
+    game_events:
+      enabled: true
+      name: GAMES
+      subjects:
+        new: new
+        updated: updated
+
+postgres:
+  host: 127.0.0.1
+  user: postgres
+  password: testtest
+  port: 5432
+  database: game
+  max_attempt: 3
+  max_delay: 3s
+  binary: false
+
+minio:
+  host: 0.0.0.0
+  port: 9000
+  access_key_id: minio
+  secret_access_key: minio123
+  game_images_bucket_name: game-images
+
+softswiss_worker:
+  enable_games: true
+  enable_new_games: true
+  enable_jackpot_games: true
+  games_interval: 24h
+
+imperium_worker:
+  enable_games: true
+  enable_new_games: true
+  enable_jackpot_games: true
+  games_interval: 24h
+
+metrics:
+  host: 0.0.0.0
+  port: 8081
+  read_timeout: 3s
+  write_timeout: 3s
+  read_header_timeout: 3s
+  enabled: true
+
+tracing:
+  enabled: true
+  host: 0.0.0.0
+  port: 4318
+
+auto_collection:
+  collections:
+    favorite:
+      priority: 1
+      main_page_tape: true
+      main_page_full: true
+    new:
+      priority: 2
+      main_page_tape: true
+      main_page_full: true
+    popular:
+      priority: 3
+      main_page_tape: true
+      main_page_full: true
+    slots:
+      priority: 4
+      main_page_tape: true
+      main_page_full: true
+    crash:
+      priority: 5
+      main_page_tape: true
+      main_page_full: true
+    live:
+      priority: 6
+      main_page_tape: true
+      main_page_full: true
+    card:
+      priority: 7
+      main_page_tape: true
+      main_page_full: true
+    roulette:
+      priority: 10
+      main_page_tape: false
+      main_page_full: false
+    casual:
+      priority: 10
+      main_page_tape: false
+      main_page_full: false
+    lottery:
+      priority: 10
+      main_page_tape: false
+      main_page_full: false
+    craps:
+      priority: 10
+      main_page_tape: false
+      main_page_full: false
+    poker:
+      priority: 10
+      main_page_tape: false
+      main_page_full: false
+    video_poker:
+      priority: 10
+      main_page_tape: false
+      main_page_full: false
+    mines:
+      priority: 10
+      main_page_tape: false
+      main_page_full: false
+    popular_searchers_games:
+      priority: 10
+      main_page_tape: false
+      main_page_full: false
